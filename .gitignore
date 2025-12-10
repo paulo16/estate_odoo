@@ -1,0 +1,47 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Odoo module specific
+*.pyc
+*.pyo
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# Editor temporary files
+*~
+.*.swp
+.*.swo
+
+# IDE files
+.idea/
+.vscode/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Temporary files
+*.tmp
+tmp/
+temp/
+
+# Log files
+*.log
+
+# Test files
+test_*.py
+*_test.py
+tests/
+
+# Documentation build
+docs/_build/

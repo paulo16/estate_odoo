@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Configuration des groupes de sécurité Estate
+==========================================
+
+Ce fichier définit les groupes d'utilisateurs pour le module Real Estate.
+Les groupes permettent de regrouper les utilisateurs par rôle métier.
+
+Auteur: Votre Nom  
+Date: 2025
+Version: 1.0
+-->
+<odoo>
+    <data>
+        
+        <!-- ========================================
+             CATÉGORIE PRINCIPALE
+             ======================================== -->
+        
+        <!-- 
+        📂 Catégorie : Organise visuellement les groupes dans les paramètres
+        Visible dans : Paramètres > Utilisateurs & Sociétés > Groupes
+        -->
+        <record id="estate_category_real_estate" model="ir.module.category">
+            <field name="name">Real Estate</field>                    <!-- 🏷️ Nom de la catégorie -->
+            <field name="description">Real Estate Management</field>   <!-- 📝 Description -->
+            <field name="sequence">10</field>                         <!-- 📊 Ordre d'affichage -->
+        </record>
+
+        <!-- ========================================
+             GROUPES D'UTILISATEURS
+             ======================================== -->
+
+        <!-- 
+        👤 Groupe Utilisateur : Droits de base pour consulter les propriétés
+        Cas d'usage : Visiteurs, clients, employés sans responsabilité
+        -->
+        <record id="estate_group_user" model="res.groups">
+            <field name="name">Estate User</field>                               <!-- 🏷️ Nom du groupe -->
+            <field name="category_id" ref="estate_category_real_estate"/>       <!-- 📂 Catégorie parent -->
+            <field name="comment">Read access to properties and basic operations</field>  <!-- 💬 Description -->
+        </record>
+
+        <!-- 
+        👨‍💼 Groupe Manager : Droits étendus pour gérer les propriétés  
+        Cas d'usage : Agents immobiliers, responsables d'agence
+        -->
+        <record id="estate_group_manager" model="res.groups">
+            <field name="name">Estate Manager</field>                           <!-- 🏷️ Nom du groupe -->
+            <field name="category_id" ref="estate_category_real_estate"/>      <!-- 📂 Catégorie parent -->
+            <field name="implied_ids" eval="[(4, ref('estate_group_user'))]"/> <!-- 👥 Hérite des droits User , le 4 c'est pour dire je veux faire une liaison , ce sont des codes pour l'ORM odoo -->
+            <field name="comment">Full access to properties, types, tags and offers management</field>
+        </record>
+
+        <!-- 
+        🏛️ Groupe Admin : Droits complets pour administrer le module
+        Cas d'usage : Administrateurs système, directeurs
+        -->
+        <record id="estate_group_admin" model="res.groups">
+            <field name="name">Estate Administrator</field>                      <!-- 🏷️ Nom du groupe -->
+            <field name="category_id" ref="estate_category_real_estate"/>       <!-- 📂 Catégorie parent -->
+            <field name="implied_ids" eval="[(4, ref('estate_group_manager'))]"/><!-- 👥 Hérite des droits Manager -->
+            <field name="comment">Administrative access with configuration rights</field>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>          <!-- 👤 Admin par défaut -->
+        </record>
+
+    </data>
+</odoo>
